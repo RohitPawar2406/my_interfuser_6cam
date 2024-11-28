@@ -110,7 +110,7 @@ class BaseAgent(autonomous_agent.AutonomousAgent):
                     name = sensor_type + "_" + pos
                     (self.save_path / name).mkdir()
 
-            for pos in ["rear"]:
+            for pos in ["rear", "rear_left", "rear_right"]:
                 for sensor_type in ["rgb"]:
                     name = sensor_type + "_" + pos
                     (self.save_path / name).mkdir()
@@ -296,6 +296,32 @@ class BaseAgent(autonomous_agent.AutonomousAgent):
                 "sensor_tick": 0.01,
                 "id": "gps",
             },
+            {
+                "type": "sensor.camera.rgb",
+                "x": -1.3,
+                "y": 0.0,
+                "z": 2.3,
+                "roll": 0.0,
+                "pitch": 0.0,
+                "yaw": -120.0,
+                "width": self._rgb_sensor_data["width"],
+                "height": self._rgb_sensor_data["height"],
+                "fov": self._rgb_sensor_data["fov"],
+                "id": "rgb_rear_left",
+            },
+            {   
+                "type": "sensor.camera.rgb",
+                "x": -1.3,
+                "y": 0.0,
+                "z": 2.3,
+                "roll": 0.0,
+                "pitch": 0.0,
+                "yaw": 120.0,
+                "width": self._rgb_sensor_data["width"],
+                "height": self._rgb_sensor_data["height"],
+                "fov": self._rgb_sensor_data["fov"],
+                "id": "rgb_rear_right",
+            },
             {"type": "sensor.speedometer", "reading_frequency": 20, "id": "speed"},
         ]
         if self.rgb_only:
@@ -361,6 +387,8 @@ class BaseAgent(autonomous_agent.AutonomousAgent):
         rgb_right = cv2.cvtColor(
             input_data["rgb_right"][1][:, :, :3], cv2.COLOR_BGR2RGB
         )
+        rgb_rear_left = cv2.cvtColor(input_data["rgb_rear_left"][1][:, :, :3], cv2.COLOR_BGR2RGB)
+        rgb_rear_right = cv2.cvtColor(input_data["rgb_rear_right"][1][:, :, :3], cv2.COLOR_BGR2RGB)
         gps = input_data["gps"][1][:2]
         speed = input_data["speed"][1]["speed"]
         compass = input_data["imu"][1][-1]
@@ -380,6 +408,8 @@ class BaseAgent(autonomous_agent.AutonomousAgent):
             }
         else:
             return {
+                "rgb_rear_left": rgb_rear_left,
+                "rgb_rear_right": rgb_rear_right,
                 "rgb_front": rgb_front,
                 "seg_front": seg["front"],
                 "depth_front": depth_front,
@@ -487,6 +517,11 @@ class BaseAgent(autonomous_agent.AutonomousAgent):
                         tick_data[name],
                         allow_pickle=True,
                     )
+        for pos1 in ["rear_left", "rear_right"]:
+            name = "rgb_" + pos1
+            Image.fromarray(tick_data[name]).save(
+                self.save_path / name / ("%04d.jpg" % frame)
+            )
 
         if not self.rgb_only:
             Image.fromarray(tick_data["topdown"]).save(

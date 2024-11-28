@@ -1,7 +1,7 @@
 #!/bin/bash
 export DATA_ROOT=dataset
 export YAML_ROOT=data_collection/yamls
-export CARLA_ROOT=carla
+export CARLA_ROOT=/scratch/rohit.pawar/new_interfuser/my_interfuser_6cam/carla
 export CARLA_SERVER=${CARLA_ROOT}/CarlaUE4.sh
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla

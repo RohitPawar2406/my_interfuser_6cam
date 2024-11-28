@@ -1,0 +1,22 @@
+birdview_v2_cache/
+carla/
+data/
+# data_collection/bashs/
+# data_collection/batch_run/
+# data_collection/yamls/
+dataset/weather-1/
+leaderboard/leaderboard/__pycache__/
+leaderboard/leaderboard/autoagents/__pycache__/
+leaderboard/leaderboard/envs/__pycache__/
+leaderboard/leaderboard/scenarios/__pycache__/
+leaderboard/leaderboard/utils/__pycache__/
+leaderboard/team_code/__pycache__/
+leaderboard/team_code/interfuser.pth.tar
+results/sample_result.json
+scenario_runner/srunner/__pycache__/
+scenario_runner/srunner/scenarioconfigs/__pycache__/
+scenario_runner/srunner/scenariomanager/__pycache__/
+scenario_runner/srunner/scenariomanager/actorcontrols/__pycache__/
+scenario_runner/srunner/scenariomanager/scenarioatomics/__pycache__/
+scenario_runner/srunner/scenarios/__pycache__/
+scenario_runner/srunner/tools/__pycache__/

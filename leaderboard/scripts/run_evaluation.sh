@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export CARLA_ROOT=carla
+export CARLA_ROOT=/scratch/rohit.pawar/new_interfuser/my_interfuser_6cam/carla
 export CARLA_SERVER=${CARLA_ROOT}/CarlaUE4.sh
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
@@ -21,7 +21,7 @@ export TEAM_CONFIG=leaderboard/team_code/interfuser_config.py # model checkpoint
 export CHECKPOINT_ENDPOINT=results/sample_result.json # results file
 export SCENARIOS=leaderboard/data/scenarios/town05_all_scenarios.json
 export SAVE_PATH=data/eval # path for saving episodes while evaluating
-export RESUME=True
+export RESUME=False
 
 python3 ${LEADERBOARD_ROOT}/leaderboard/leaderboard_evaluator.py \
 --scenarios=${SCENARIOS}  \
